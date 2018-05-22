@@ -1,15 +1,15 @@
 pragma solidity 0.4.21;
 
 
+//Thanks to odem.io :)
+
 /**
  * @title SafeMath
  * @dev Math operations with safety checks that throw on error
  */
-library SafeMath {
+/** library SafeMath {
 
-    /**
-     * @dev Multiplies two numbers, throws on overflow.
-     */
+
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         if (a == 0) {
             return 0;
@@ -19,9 +19,7 @@ library SafeMath {
         return c;
     }
 
-    /**
-     * @dev Integer division of two numbers, truncating the quotient.
-     */
+
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
@@ -29,23 +27,20 @@ library SafeMath {
         return c;
     }
 
-    /**
-     * @dev Substracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
-     */
+
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
         assert(b <= a);
         return a - b;
     }
 
-    /**
-     * @dev Adds two numbers, throws on overflow.
-     */
+
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
         assert(c >= a);
         return c;
     }
 }
+*/
 
 
 /**
@@ -108,21 +103,21 @@ contract ERC20 {
  *   address has set a sufficient allowance for the address of this contract.
  */
 contract Airdropper is Ownable {
-    using SafeMath for uint;
+    //using SafeMath for uint;
 
     ERC20 public token;
-    uint public multiplier;
+    //uint public multiplier;
 
     /**
      * @dev Constructor.
      * @param tokenAddress Address of the token contract.
      * @param decimals Decimals as specified by the token.
      */
-    function Airdropper(address tokenAddress, uint decimals) public {
-        require(decimals <= 77);  // 10**77 < 2**256-1 < 10**78
+    function Airdropper(/*address tokenAddress, uint decimals*/) public {
+        //require(decimals <= 77);  // 10**77 < 2**256-1 < 10**78
 
-        token = ERC20(tokenAddress);
-        multiplier = 10**decimals;
+        token = ERC20(0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6);  //Dentacoin token address
+        //multiplier = 10**decimals;
     }
 
     /**
@@ -138,7 +133,7 @@ contract Airdropper is Ownable {
         require(dests.length == values.length);
 
         for (uint256 i = 0; i < dests.length; i++) {
-            require(token.transferFrom(source, dests[i], values[i].mul(multiplier)));
+            require(token.transferFrom(source, dests[i], values[i] /*.mul(multiplier)*/ ));
         }
     }
 
@@ -157,4 +152,3 @@ contract Airdropper is Ownable {
         selfdestruct(owner);
     }
 }
-
